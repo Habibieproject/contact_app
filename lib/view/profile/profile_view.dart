@@ -1,3 +1,8 @@
+import 'package:contact_app/controller/utils/button.dart';
+import 'package:contact_app/controller/utils/helper/avatar_word.dart';
+import 'package:contact_app/controller/utils/query/query.dart';
+import 'package:contact_app/controller/utils/theme/app_color.dart';
+import 'package:contact_app/controller/utils/theme/app_style.dart';
 import 'package:flutter/material.dart';
 
 class ProfileView extends StatelessWidget {
@@ -5,6 +10,71 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('My Profile'),
+          actions: [
+            InkWell(
+              onTap: () {},
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Logout',
+                  style: AppStyle.bold(
+                    fontSize: FontSize.font16,
+                    color: AppColor.kPrimaryColor,
+                  ).copyWith(fontWeight: FontWeight.w900),
+                ),
+              ),
+            )
+          ],
+        ),
+        body: Padding(
+          padding: sizePaddingAll(context),
+          child: Column(
+            children: [
+              Center(
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundColor: AppColor.kPrimaryColor,
+                  child: Text(
+                      getAvatarWord(
+                        "Andrea Surya",
+                      ),
+                      style: AppStyle.extraLight(
+                          color: AppColor.kWhiteColor,
+                          fontSize: FontSize.font30)),
+                ),
+              ),
+              spaceHeight04,
+              Text("Andrea Surya",
+                  style: AppStyle.regular(
+                    fontSize: FontSize.font15,
+                    color: AppColor.kGrayColor,
+                  )),
+              spaceHeight02,
+              Text("andreasuryahabibie17@gmail.com",
+                  style: AppStyle.regular(
+                    fontSize: FontSize.font15,
+                    color: AppColor.kGrayColor,
+                  )),
+              spaceHeight02,
+              Text("26/6/1998",
+                  style: AppStyle.regular(
+                    fontSize: FontSize.font15,
+                    color: AppColor.kGrayColor,
+                  )),
+              spaceHeight02,
+              Row(
+                children: [
+                  DefaultButton(
+                    text: "Update my detail",
+                    onPressed: () {},
+                  ),
+                ],
+              )
+            ],
+          ),
+        ));
   }
 }
