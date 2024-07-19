@@ -67,6 +67,11 @@ class _DetailViewState extends State<DetailView> {
     }
   }
 
+  Future<void> _deleteContact() async {
+    await DatabaseHelper().deleteContact(widget.contact!.id);
+    Navigator.pop(context, true); // return to the previous screen
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,11 +196,7 @@ class _DetailViewState extends State<DetailView> {
                     DefaultButton(
                       text: "Remove",
                       isOutline: true,
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          Navigator.pop(context);
-                        }
-                      },
+                      onPressed: _deleteContact,
                     ),
                   ],
                 ),
