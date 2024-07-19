@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: themeData(),
       home: const LoginView(),
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
             centerTitle: false,
             titleTextStyle:
-                AppStyle.semiBold(color: AppColor.kWhiteColor, fontSize: 23),
+                AppStyle.bold(color: AppColor.kBlackColor, fontSize: 23),
             iconTheme: const IconThemeData(color: AppColor.kBlackColor),
             backgroundColor: AppColor.kWhiteColor),
         fontFamily: AppConfig.fontFamily,

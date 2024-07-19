@@ -65,6 +65,16 @@ class AppStyle {
           fontFamily: fontFamily!,
           fontWeight: FontWeight.w300,
           color: color);
+  static TextStyle extraLight({
+    double? fontSize = FontSize.font14,
+    String? fontFamily = AppConfig.fontFamily,
+    Color color = Colors.black,
+  }) =>
+      AppFonts.primaryFont(
+          fontSize: fontSize!,
+          fontFamily: fontFamily!,
+          fontWeight: FontWeight.w200,
+          color: color);
   static TextStyle thin({
     double? fontSize = FontSize.font14,
     String? fontFamily = AppConfig.fontFamily,
