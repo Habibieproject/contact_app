@@ -1,6 +1,7 @@
 import 'package:contact_app/controller/data/database.dart';
 import 'package:contact_app/controller/utils/button.dart';
 import 'package:contact_app/controller/utils/helper/avatar_word.dart';
+import 'package:contact_app/controller/utils/helper/validator.dart';
 import 'package:contact_app/controller/utils/query/query.dart';
 import 'package:contact_app/controller/utils/text_field.dart';
 import 'package:contact_app/controller/utils/theme/app_color.dart';
@@ -50,6 +51,22 @@ class _DetailViewState extends State<DetailView> {
     }
   }
 
+  Future<void> _saveContact() async {
+    if (_formKey.currentState!.validate()) {
+      final newContact = ContactResponse(
+        id: DateTime.now()
+            .millisecondsSinceEpoch
+            .toString(), // generate unique ID
+        firstName: _firstNameController.text,
+        lastName: _lastNameController.text,
+        email: _emailController.text,
+        dob: _dobController.text,
+      );
+      await DatabaseHelper().insertContact(newContact);
+      Navigator.pop(context, true); // return to the previous screen
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,14 +87,22 @@ class _DetailViewState extends State<DetailView> {
               CircleAvatar(
                 radius: 50,
                 backgroundColor: AppColor.kPrimaryColor,
-                child: Text(
-                    getAvatarWord(
-                      "Andrea Surya",
-                    ),
-                    style: AppStyle.extraLight(
+                child: _firstNameController.text.isEmpty &&
+                        _lastNameController.text.isEmpty
+                    ? const Icon(
+                        Icont.person,
+                        size: 30,
                         color: AppColor.kWhiteColor,
-                        fontSize: FontSize.font30)),
+                      )
+                    : Text(
+                        getAvatarWord(
+                          "${_firstNameController.text} ${_lastNameController.text}",
+                        ),
+                        style: AppStyle.extraLight(
+                            color: AppColor.kWhiteColor,
+                            fontSize: FontSize.font30)),
               ),
+              spaceHeight04,
               const TitleTextFieldConst(
                   title: "Main Information", isItalic: true),
               dividerWidget(),
@@ -124,6 +149,9 @@ class _DetailViewState extends State<DetailView> {
                   if (value == null || value.isEmpty) {
                     return 'Please enter email';
                   }
+                  if (!isValidEmail(value)) {
+                    return 'Please enter a valid email';
+                  }
                   return null;
                 },
               ),
@@ -148,14 +176,7 @@ class _DetailViewState extends State<DetailView> {
               if (widget.isAdd) ...[
                 Row(
                   children: [
-                    DefaultButton(
-                      text: "Save",
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _updateContact();
-                        }
-                      },
-                    ),
+                    DefaultButton(text: "Save", onPressed: _saveContact),
                   ],
                 ),
               ] else ...[

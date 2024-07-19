@@ -72,6 +72,18 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
+  void _navigateAddData() {
+    context
+        .push(const DetailView(
+      isAdd: true,
+    ))
+        .then((result) {
+      if (result == true) {
+        _refreshContacts();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,11 +91,7 @@ class _HomeViewState extends State<HomeView> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
-        onPressed: () {
-          context.push(const DetailView(
-            isAdd: true,
-          ));
-        },
+        onPressed: _navigateAddData,
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
