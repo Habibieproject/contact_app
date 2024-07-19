@@ -6,7 +6,7 @@ import 'package:contact_app/controller/utils/theme/app_color.dart';
 import 'package:contact_app/controller/utils/theme/app_style.dart';
 import 'package:contact_app/controller/utils/theme/icont_icons.dart';
 import 'package:contact_app/controller/utils/title.dart';
-import 'package:contact_app/view/home/home_view.dart';
+import 'package:contact_app/view/main/main_view.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatefulWidget {
@@ -21,7 +21,7 @@ class _LoginViewState extends State<LoginView> {
 
   Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
-      context.pushReplacement(const HomeView());
+      context.pushReplacement(const MainView());
     }
   }
 
