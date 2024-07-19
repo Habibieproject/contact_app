@@ -1,5 +1,6 @@
 import 'package:contact_app/controller/utils/theme/app_style.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CustomTextField extends StatefulWidget {
   final bool readOnly;
@@ -17,6 +18,7 @@ class CustomTextField extends StatefulWidget {
     this.validator,
     this.readOnly = false,
   });
+
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -39,7 +41,24 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   void _handleFocusChange() {
+    if (_focusNode.hasFocus && widget.readOnly) {
+      _showDatePicker();
+    }
     setState(() {});
+  }
+
+  Future<void> _showDatePicker() async {
+    DateTime? selectedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+    if (selectedDate != null) {
+      String formattedDate = DateFormat('dd/MM/yyyy').format(selectedDate);
+      widget.controller?.text = formattedDate;
+    }
+    _focusNode.unfocus();
   }
 
   @override
@@ -53,13 +72,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
       decoration: InputDecoration(
         isDense: true,
         hintText: widget.hintText,
-        prefixIcon: widget.prefixIcon,
+        prefixIcon: widget.prefixIcon != null
+            ? IconTheme(
+                data: IconThemeData(
+                    color: _focusNode.hasFocus
+                        ? Theme.of(context).primaryColor
+                        : Colors.grey,
+                    size: 16),
+                child: widget.prefixIcon!,
+              )
+            : null,
         suffixIcon: widget.suffixIcon != null
             ? IconTheme(
                 data: IconThemeData(
                   color: _focusNode.hasFocus
                       ? Theme.of(context).primaryColor
                       : Colors.grey,
+                  size: 16,
                 ),
                 child: widget.suffixIcon!,
               )

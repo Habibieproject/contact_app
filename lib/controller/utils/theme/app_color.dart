@@ -7,6 +7,7 @@ class AppColor {
   static const Color kButtonColor = Color(0xFFEBF7FD);
   static const Color kGrayColor = Color(0xFF7F7F7F);
   static const Color kRedColor = Color(0xFFED1C2E);
+  static const Color kRedTextColor = Color(0xFFB60000);
   static const Color kWhiteColor = Color(0xFFFFFFFF);
   static const Color kBlackColor = Color(0xFF000000);
 }

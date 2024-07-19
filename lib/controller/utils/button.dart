@@ -32,7 +32,7 @@ class DefaultButton extends StatelessWidget {
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                     side: const BorderSide(
-                      color: AppColor.kBlackColor,
+                      color: AppColor.kRedColor,
                     ),
                   ),
                 ),
@@ -49,9 +49,11 @@ class DefaultButton extends StatelessWidget {
           text,
           style: AppStyle.bold(
                   color: isOutline == true
-                      ? AppColor.kBlackColor
+                      ? AppColor.kRedTextColor
                       : AppColor.kPrimaryColor)
-              .copyWith(fontWeight: FontWeight.w900),
+              .copyWith(
+            fontWeight: isOutline == true ? FontWeight.normal : FontWeight.w900,
+          ),
         ),
       ),
     );

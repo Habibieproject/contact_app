@@ -1,9 +1,11 @@
+import 'package:contact_app/controller/utils/ext/navigation.dart';
 import 'package:contact_app/controller/utils/helper/avatar_word.dart';
 import 'package:contact_app/controller/utils/query/query.dart';
 import 'package:contact_app/controller/utils/text_field.dart';
 import 'package:contact_app/controller/utils/theme/app_color.dart';
 import 'package:contact_app/controller/utils/theme/app_style.dart';
 import 'package:contact_app/controller/utils/theme/icont_icons.dart';
+import 'package:contact_app/view/home/detail_view.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {
@@ -16,7 +18,11 @@ class HomeView extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
-        onPressed: () {},
+        onPressed: () {
+          context.push(const DetailView(
+            isAdd: true,
+          ));
+        },
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
@@ -41,32 +47,40 @@ class HomeView extends StatelessWidget {
                 ),
                 itemCount: 8,
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    padding: sizePaddingAll(context) / 2,
-                    decoration: BoxDecoration(
-                      color: AppColor.kWhiteColor,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: AppColor.kDarkGrayColor),
-                    ),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: CircleAvatar(
-                            radius: 100,
-                            backgroundColor: AppColor.kPrimaryColor,
-                            child: Text(
-                                getAvatarWord(
-                                  "Andrea Surya",
-                                ),
-                                style: AppStyle.extraLight(
-                                    color: AppColor.kWhiteColor,
-                                    fontSize: FontSize.font30)),
+                  return InkWell(
+                    onTap: () {
+                      context.push(const DetailView(
+                        isAdd: false,
+                      ));
+                    },
+                    child: Container(
+                      padding: sizePaddingAll(context) / 2,
+                      decoration: BoxDecoration(
+                        color: AppColor.kWhiteColor,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: AppColor.kDarkGrayColor),
+                      ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: CircleAvatar(
+                              radius: 100,
+                              backgroundColor: AppColor.kPrimaryColor,
+                              child: Text(
+                                  getAvatarWord(
+                                    "Andrea Surya",
+                                  ),
+                                  style: AppStyle.extraLight(
+                                      color: AppColor.kWhiteColor,
+                                      fontSize: FontSize.font30)),
+                            ),
                           ),
-                        ),
-                        spaceHeight02,
-                        Text('Andrea Surya',
-                            style: AppStyle.regular(fontSize: FontSize.font13)),
-                      ],
+                          spaceHeight02,
+                          Text('Andrea Surya',
+                              style:
+                                  AppStyle.regular(fontSize: FontSize.font13)),
+                        ],
+                      ),
                     ),
                   );
                 },
