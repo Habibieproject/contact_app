@@ -19,4 +19,13 @@ extension NavigatorExtension on BuildContext {
       ),
     );
   }
+
+  Future<T?> pushRemoveAll<T extends Object?>(Widget page) {
+    return Navigator.of(this).pushAndRemoveUntil(
+      MaterialPageRoute<T>(
+        builder: (context) => page,
+      ),
+      (route) => false,
+    );
+  }
 }

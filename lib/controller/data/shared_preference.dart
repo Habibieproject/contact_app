@@ -11,9 +11,9 @@ class PreferenceHandler {
 
 //storing
 
-  static Future<void> storingUserID(int userID) async {
+  static Future<void> storingUserID(String userID) async {
     final preferences = await _instance;
-    preferences.setInt(_userId, userID);
+    preferences.setString(_userId, userID);
   }
 
   static Future<void> storingIsLoggin(bool isLoggedIn) async {

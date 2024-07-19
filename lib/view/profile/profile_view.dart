@@ -1,8 +1,11 @@
+import 'package:contact_app/controller/data/shared_preference.dart';
 import 'package:contact_app/controller/utils/button.dart';
+import 'package:contact_app/controller/utils/ext/navigation.dart';
 import 'package:contact_app/controller/utils/helper/avatar_word.dart';
 import 'package:contact_app/controller/utils/query/query.dart';
 import 'package:contact_app/controller/utils/theme/app_color.dart';
 import 'package:contact_app/controller/utils/theme/app_style.dart';
+import 'package:contact_app/view/login/login_view.dart';
 import 'package:flutter/material.dart';
 
 class ProfileView extends StatelessWidget {
@@ -15,7 +18,11 @@ class ProfileView extends StatelessWidget {
           title: const Text('My Profile'),
           actions: [
             InkWell(
-              onTap: () {},
+              onTap: () async {
+                await PreferenceHandler.removeIsLoggedIn();
+                await PreferenceHandler.removeUserID();
+                context.pushRemoveAll(const LoginView());
+              },
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
