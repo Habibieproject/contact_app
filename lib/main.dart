@@ -2,7 +2,7 @@ import 'package:contact_app/controller/config/config.dart';
 import 'package:contact_app/controller/utils/theme/app_color.dart';
 import 'package:contact_app/controller/utils/theme/app_style.dart';
 import 'package:contact_app/controller/utils/theme/input_decoration_theme.dart';
-import 'package:contact_app/view/login/login_view.dart';
+import 'package:contact_app/view/splash_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: themeData(),
-      home: const LoginView(),
+      home: const SplashView(),
     );
   }
 
