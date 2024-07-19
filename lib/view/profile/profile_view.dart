@@ -50,6 +50,12 @@ class _ProfileViewState extends State<ProfileView> {
         .then((result) {
       if (result == true) {
         _refreshContacts();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Contact updated"),
+            backgroundColor: AppColor.kPrimaryColor,
+          ),
+        );
       }
     });
   }

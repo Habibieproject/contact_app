@@ -47,29 +47,27 @@ class _DetailViewState extends State<DetailView> {
       );
 
       await DatabaseHelper().updateContact(updatedContact);
-      Navigator.pop(context, true); // return to the previous screen
+      Navigator.pop(context, true);
     }
   }
 
   Future<void> _saveContact() async {
     if (_formKey.currentState!.validate()) {
       final newContact = ContactResponse(
-        id: DateTime.now()
-            .millisecondsSinceEpoch
-            .toString(), // generate unique ID
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
         firstName: _firstNameController.text,
         lastName: _lastNameController.text,
         email: _emailController.text,
         dob: _dobController.text,
       );
       await DatabaseHelper().insertContact(newContact);
-      Navigator.pop(context, true); // return to the previous screen
+      Navigator.pop(context, true);
     }
   }
 
   Future<void> _deleteContact() async {
     await DatabaseHelper().deleteContact(widget.contact!.id);
-    Navigator.pop(context, true); // return to the previous screen
+    Navigator.pop(context, true);
   }
 
   @override

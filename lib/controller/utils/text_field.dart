@@ -72,6 +72,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       validator: widget.validator,
       controller: widget.controller,
       onChanged: widget.onChanged,
+      textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         isDense: true,
         hintText: widget.hintText,

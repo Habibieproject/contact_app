@@ -52,6 +52,15 @@ class DatabaseHelper {
     }
   }
 
+  Future<void> refreshInitialData() async {
+    final db = await database;
+    await db.delete('contacts');
+    print("All data deleted");
+
+    await _loadInitialData(db);
+    print("Initial data loaded");
+  }
+
   Future<List<ContactResponse>> getContacts() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('contacts');
