@@ -9,6 +9,7 @@ class CustomTextField extends StatefulWidget {
   final Widget? suffixIcon;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final Function(String)? onChanged;
   const CustomTextField({
     super.key,
     required this.hintText,
@@ -17,6 +18,7 @@ class CustomTextField extends StatefulWidget {
     this.suffixIcon,
     this.validator,
     this.readOnly = false,
+    this.onChanged,
   });
 
   @override
@@ -69,6 +71,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       style: AppStyle.regular(),
       validator: widget.validator,
       controller: widget.controller,
+      onChanged: widget.onChanged,
       decoration: InputDecoration(
         isDense: true,
         hintText: widget.hintText,

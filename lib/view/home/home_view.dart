@@ -20,6 +20,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late Future<List<ContactResponse>> _contacts;
+  List<ContactResponse> _filteredContacts = [];
   String? _userId;
   final TextEditingController _searchController = TextEditingController();
 
@@ -28,12 +29,27 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     _loadUserId();
     _contacts = DatabaseHelper().getContacts();
+    _searchController.addListener(_filterContacts);
   }
 
   Future<void> _loadUserId() async {
     var userIds = await PreferenceHandler.retrieveUserID();
     setState(() {
       _userId = userIds;
+    });
+  }
+
+  void _filterContacts() {
+    setState(() {
+      _contacts.then((contacts) {
+        final query = _searchController.text.toLowerCase();
+        _filteredContacts = contacts
+            .where((contact) =>
+                contact.firstName.toLowerCase().contains(query) ||
+                contact.lastName.toLowerCase().contains(query) ||
+                (contact.email ?? '').toLowerCase().contains(query))
+            .toList();
+      });
     });
   }
 
@@ -62,6 +78,9 @@ class _HomeViewState extends State<HomeView> {
               hintText: "Search your contact list...",
               suffixIcon: const Icon(Icont.search),
               controller: _searchController,
+              onChanged: (value) {
+                _filterContacts();
+              },
             ),
             spaceHeight04,
             Expanded(
@@ -74,9 +93,13 @@ class _HomeViewState extends State<HomeView> {
                       return Center(child: Text('Error: ${snapshot.error}'));
                     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                       return const Center(child: Text('No contacts found'));
+                    } else if (_filteredContacts.isEmpty &&
+                        _searchController.text.isNotEmpty) {
+                      return const Center(child: Text('No contacts found'));
                     } else {
-                      final contacts = snapshot.data!;
-
+                      final contacts = _searchController.text.isEmpty
+                          ? snapshot.data!
+                          : _filteredContacts;
                       return GridView.builder(
                         shrinkWrap: true,
                         gridDelegate:
