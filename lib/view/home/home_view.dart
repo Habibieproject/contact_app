@@ -53,6 +53,25 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
+  void _refreshContacts() {
+    setState(() {
+      _contacts = DatabaseHelper().getContacts();
+    });
+  }
+
+  void _navigateEditData(ContactResponse contact) {
+    context
+        .push(DetailView(
+      contact: contact,
+      isAdd: false,
+    ))
+        .then((result) {
+      if (result == true) {
+        _refreshContacts();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,9 +135,7 @@ class _HomeViewState extends State<HomeView> {
                               '${contact.firstName} ${contact.lastName}');
                           return InkWell(
                             onTap: () {
-                              context.push(const DetailView(
-                                isAdd: false,
-                              ));
+                              _navigateEditData(contact);
                             },
                             child: Container(
                               padding: sizePaddingAll(context) / 2,
@@ -134,10 +151,13 @@ class _HomeViewState extends State<HomeView> {
                                     child: CircleAvatar(
                                       radius: 100,
                                       backgroundColor: AppColor.kPrimaryColor,
-                                      child: Text(avatar,
-                                          style: AppStyle.extraLight(
-                                              color: AppColor.kWhiteColor,
-                                              fontSize: FontSize.font30)),
+                                      child: Text(
+                                        avatar,
+                                        style: AppStyle.extraLight(
+                                          color: AppColor.kWhiteColor,
+                                          fontSize: FontSize.font30,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                   spaceHeight02,
@@ -154,9 +174,9 @@ class _HomeViewState extends State<HomeView> {
                                           TextSpan(
                                             text: ' (you)',
                                             style: AppStyle.regular(
-                                                    fontSize: FontSize.font13,
-                                                    color: AppColor.kGrayColor)
-                                                .copyWith(
+                                              fontSize: FontSize.font13,
+                                              color: AppColor.kGrayColor,
+                                            ).copyWith(
                                               fontStyle: FontStyle.italic,
                                             ),
                                           ),
