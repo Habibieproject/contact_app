@@ -1,5 +1,6 @@
 import 'package:contact_app/controller/data/shared_preference.dart';
 import 'package:contact_app/controller/utils/ext/navigation.dart';
+import 'package:contact_app/controller/utils/theme/app_color.dart';
 import 'package:contact_app/view/login/login_view.dart';
 import 'package:contact_app/view/main/main_view.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,9 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          color: AppColor.kPrimaryColor,
+        ),
       ),
     );
   }
